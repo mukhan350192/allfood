@@ -7,8 +7,8 @@ use App\Models\City;
 use App\Models\Section;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class CafeService
@@ -66,11 +66,12 @@ class CafeService
     }
 
     public function getCity(){
-        if (Cache::get('city')){
-            return Cache::get('city');
+//        Redis::del('city');
+        if (Redis::exists('city')){
+            return json_decode(Redis::get('city'));
         }
         $data = City::all();
-        Cache::put('city', $data, 60*60*24);
+        Redis::set('city', $data);
         return $data;
     }
 }

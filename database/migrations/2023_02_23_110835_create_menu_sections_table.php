@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name',500);
             $table->unsignedInteger('cafe_id')->index();
+            $table->unsignedInteger('bonus')->default(0);
+            $table->unsignedInteger('status')->default(1);
             $table->timestamps();
         });
     }

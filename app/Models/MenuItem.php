@@ -50,4 +50,9 @@ class MenuItem extends Model
         ]);
         return $menuId->id;
     }
+
+    public function sizes()
+    {
+        return $this->hasMany(MenuItemSizes::class, 'item_id', 'id');
+    }
 }
